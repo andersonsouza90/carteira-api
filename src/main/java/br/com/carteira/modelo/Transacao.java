@@ -32,9 +32,10 @@ public class Transacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String ticker;
+	private LocalDate data;
 	private BigDecimal preco;
 	private int quantidade;
-	private LocalDate data;
+	
 	
 	@Enumerated(EnumType.STRING)
 	private TipoTransacao tipo;
