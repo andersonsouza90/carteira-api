@@ -1,5 +1,6 @@
 package br.com.carteira.service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -36,14 +37,23 @@ public class TransacaoService {
 	public TransacaoDto cadastrar(TransacaoFormDto dto) {
 		
 		Long idUsuario = dto.getUsuarioId();
-		Usuario usuario = usuarioRepository.getById(idUsuario);
 		
-		Transacao transacao = modelMapper.map(dto, Transacao.class);
-		transacao.setId(null);
-		transacao.setUsuario(usuario);
+		try {
+			
+			Usuario usuario = usuarioRepository.getById(idUsuario);
+			
+			Transacao transacao = modelMapper.map(dto, Transacao.class);
+			transacao.setId(null);
+			transacao.setUsuario(usuario);
+			
+			transacaoRepository.save(transacao);
+			
+			return modelMapper.map(transacao, TransacaoDto.class);
+			
+		} catch (EntityNotFoundException e) {
+			throw new IllegalArgumentException("Usuário inexistente!");
+		}
 		
-		transacaoRepository.save(transacao);
-		return modelMapper.map(transacao, TransacaoDto.class);
 	}
 	
 	

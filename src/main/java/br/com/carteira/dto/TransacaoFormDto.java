@@ -13,10 +13,14 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import br.com.carteira.modelo.TipoTransacao;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransacaoFormDto {
 	
 	@NotNull
@@ -25,6 +29,9 @@ public class TransacaoFormDto {
 	@Pattern(regexp = "[a-zA-Z]{4}[0-9][0-9]?", message = "{transacao.ticker.invalido}")
 	private String ticker;
 	
+	@PastOrPresent
+	private LocalDate data;
+	
 	@NotNull
 	@DecimalMin("0.01")
 	private BigDecimal preco;
@@ -32,8 +39,6 @@ public class TransacaoFormDto {
 	@NotNull
 	private int quantidade;
 	
-	@PastOrPresent
-	private LocalDate data;
 	@NotNull
 	private TipoTransacao tipo;
 	
