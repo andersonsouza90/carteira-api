@@ -34,7 +34,7 @@ public class Transacao {
 	private String ticker;
 	private LocalDate data;
 	private BigDecimal preco;
-	private int quantidade;
+	private Integer quantidade;
 	
 	
 	@Enumerated(EnumType.STRING)
@@ -42,5 +42,17 @@ public class Transacao {
 	
 	@ManyToOne
 	private Usuario usuario;
+
+	public Transacao(String ticker, LocalDate data, BigDecimal preco, int quantidade, TipoTransacao tipo,
+			Usuario usuario) {
+		this.ticker = ticker;
+		this.data = data;
+		this.preco = preco;
+		this.quantidade = quantidade;
+		this.tipo = tipo;
+		this.usuario = usuario;
+	}
+	
+	
 
 }

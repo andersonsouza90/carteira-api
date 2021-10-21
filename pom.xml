@@ -72,6 +72,12 @@
 			<artifactId>flyway-core</artifactId>
 			<!-- Quando não informamos a versão, o spring gerencia de acordo com sua própria versão -->
 		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 		    <groupId>com.h2database</groupId> -->
+<!-- 		    <artifactId>h2</artifactId> -->
+<!-- 		    <version>1.4.200</version> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 

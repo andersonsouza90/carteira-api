@@ -32,10 +32,8 @@ class TransacaoServiceTest {
 	
 	@InjectMocks
 	TransacaoService service;
-
-	@Test
-	void deveriaCadastrarUmaTransacao() {
-		
+	
+	private TransacaoFormDto criarTransacaoFormDto() {
 		TransacaoFormDto formDto = new TransacaoFormDto(
 											"XPT01",
 											LocalDate.now(),
@@ -44,8 +42,17 @@ class TransacaoServiceTest {
 											TipoTransacao.COMPRA,
 											1l
 										);
+		return formDto;
+	}
+
+	@Test
+	void deveriaCadastrarUmaTransacao() {
+		
+		TransacaoFormDto formDto = criarTransacaoFormDto();
 		
 		TransacaoDto dto = service.cadastrar(formDto);
+		
+		Mockito.verify(transacaoRepository).save(Mockito.any());
 		
 		assertEquals(formDto.getTicker(), dto.getTicker());
 		assertEquals(formDto.getPreco(), dto.getPreco());
@@ -53,18 +60,12 @@ class TransacaoServiceTest {
 		assertEquals(formDto.getTipo(), dto.getTipo());
 		
 	}
-	
+
 	@Test
 	void NaoDeveriaCadastrarUmaTransacaoComUsuarioInexistente() {
 		
-		TransacaoFormDto formDto = new TransacaoFormDto(
-											"XPT01",
-											LocalDate.now(),
-											new BigDecimal("30.00"),
-											10,
-											TipoTransacao.COMPRA,
-											999999l
-										);
+		TransacaoFormDto formDto = criarTransacaoFormDto();
+		
 		Mockito
 			.when(usuarioRepository.getById(formDto.getUsuarioId()))
 			.thenThrow(EntityNotFoundException.class);
