@@ -20,20 +20,25 @@ import br.com.carteira.dto.TransacaoDto;
 import br.com.carteira.dto.UsuarioDto;
 import br.com.carteira.dto.UsuarioFormDto;
 import br.com.carteira.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/usuarios")
+@Api(tags = "Usuario")
 public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService service;
 	
 	@GetMapping
+	@ApiOperation("Listar usuarios")
 	public Page<UsuarioDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
 		return service.listar(paginacao);
 	}
 	
 	@PostMapping
+	@ApiOperation("Cadastrar novo usuarios")
 	public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioFormDto dto,
 							UriComponentsBuilder uriBuilder) {
 		
