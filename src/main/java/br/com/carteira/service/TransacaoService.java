@@ -27,7 +27,9 @@ public class TransacaoService {
 	private TransacaoRepository transacaoRepository;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	private ModelMapper modelMapper = new ModelMapper();
+	
+	@Autowired // o model mapper foi adicionado no beans configurations para não precisar dar new modelMapper() 
+	private ModelMapper modelMapper;
 	
 	public Page<TransacaoDto> listar(Pageable paginacao) {
 		
