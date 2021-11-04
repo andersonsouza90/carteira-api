@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import br.com.carteira.repository.UsuarioRepository;
 
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
@@ -20,6 +23,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private TokenService tokenService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Override
 	@Bean
@@ -42,7 +51,10 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			//.and().formLogin() // autenticação tradicional com tela de login
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().csrf().disable();
+			.and().csrf().disable()
+			.addFilterBefore(
+					new VerificacaoTokenFilter(tokenService, usuarioRepository),
+					UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	@Override
