@@ -2,6 +2,8 @@ package br.com.carteira.dto;
 
 import javax.validation.constraints.NotBlank;
 
+import com.sun.istack.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +14,8 @@ public class UsuarioFormDto {
 	private String nome;
 	@NotBlank
 	private String login;
+	
+	@NotNull
+	private Long perfilId;
 
 }

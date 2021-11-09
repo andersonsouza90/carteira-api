@@ -48,6 +48,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 		http
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
+			.antMatchers("/usuarios").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			//.and().formLogin() // autenticação tradicional com tela de login
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
