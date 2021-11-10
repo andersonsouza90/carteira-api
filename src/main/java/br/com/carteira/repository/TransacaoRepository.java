@@ -2,11 +2,14 @@ package br.com.carteira.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.carteira.dto.ItemRelatorioCarteiraDto;
 import br.com.carteira.modelo.Transacao;
+import br.com.carteira.modelo.Usuario;
 
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
 	
@@ -17,5 +20,7 @@ public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
 			+ "from Transacao t\r\n"
 			+ "group by t.ticker")
 	List<ItemRelatorioCarteiraDto> relatorioCarteira();
+	
+	Page<Transacao> findAllByUsuario(Pageable paginacao, Usuario usuario);
 
 }

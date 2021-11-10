@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import br.com.carteira.dto.AtualizarTransacaoFormDto;
 import br.com.carteira.dto.TransacaoConsultarDto;
 import br.com.carteira.dto.TransacaoDto;
 import br.com.carteira.dto.TransacaoFormDto;
+import br.com.carteira.modelo.Usuario;
 import br.com.carteira.service.TransacaoService;
 
 @RestController
@@ -37,7 +39,7 @@ public class TransacaoController {
 	//@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	
 	@GetMapping
-	public Page<TransacaoDto> listar(@PageableDefault(size = 10) Pageable paginacao) {
+	public Page<TransacaoDto> listar(@PageableDefault(size = 10) Pageable paginacao, @AuthenticationPrincipal Usuario logado) {
 		//conversão modo 1
 //		List<TransacaoDto> transacoesDto = new ArrayList<TransacaoDto>();
 //		for (Transacao t : transacoes) {
@@ -59,15 +61,17 @@ public class TransacaoController {
 //					.stream()
 //					.map(t -> modelMapper.map(t, TransacaoDto.class)).collect(Collectors.toList());
 		
-		return service.listar(paginacao);
+		return service.listar(paginacao, logado);
 		
 		
 	}
 	
 	@PostMapping
 	public ResponseEntity<TransacaoDto> cadastrar(@RequestBody @Valid TransacaoFormDto dto,
-													UriComponentsBuilder uriBuilder) {
-		TransacaoDto transacaoDto = service.cadastrar(dto);
+													UriComponentsBuilder uriBuilder,
+													 @AuthenticationPrincipal Usuario logado) {
+		
+		TransacaoDto transacaoDto = service.cadastrar(dto, logado);
 		
 		URI uri = uriBuilder
 				.path("/transacao/{id}")
@@ -78,20 +82,22 @@ public class TransacaoController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<TransacaoDto> atualizar(@RequestBody @Valid AtualizarTransacaoFormDto dto) {
-		TransacaoDto atualizada = service.atualizar(dto);
+	public ResponseEntity<TransacaoDto> atualizar(@RequestBody @Valid AtualizarTransacaoFormDto dto,
+														@AuthenticationPrincipal Usuario logado) {
+		
+		TransacaoDto atualizada = service.atualizar(dto, logado);
 		return ResponseEntity.ok(atualizada);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<TransacaoDto> deletar(@PathVariable @NotNull Long id) {
-		service.deletar(id);
+	public ResponseEntity<TransacaoDto> deletar(@PathVariable @NotNull Long id, @AuthenticationPrincipal Usuario logado) {
+		service.deletar(id, logado);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<TransacaoConsultarDto> consultar(@PathVariable @NotNull Long id) {
-		TransacaoConsultarDto dto = service.consultar(id);
+	public ResponseEntity<TransacaoConsultarDto> consultar(@PathVariable @NotNull Long id, @AuthenticationPrincipal Usuario logado) {
+		TransacaoConsultarDto dto = service.consultar(id, logado);
 		return ResponseEntity.ok(dto);
 	}
 	
