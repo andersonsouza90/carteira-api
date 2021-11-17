@@ -24,7 +24,8 @@ class CalculadoraDeImpostoServiceTest {
 					preco,
 					quantidade,
 					tipo,
-					new Usuario(1l, "Usuario Teste", "teste@gmail.com", "123", null)
+					new Usuario(1l, "Usuario Teste", "teste@gmail.com", "123", null),
+					BigDecimal.ZERO
 				);
 		return transacao;
 	}

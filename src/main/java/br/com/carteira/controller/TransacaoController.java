@@ -27,6 +27,7 @@ import br.com.carteira.dto.TransacaoDto;
 import br.com.carteira.dto.TransacaoFormDto;
 import br.com.carteira.modelo.Usuario;
 import br.com.carteira.service.TransacaoService;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/transacoes")
@@ -39,7 +40,7 @@ public class TransacaoController {
 	//@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	
 	@GetMapping
-	public Page<TransacaoDto> listar(@PageableDefault(size = 10) Pageable paginacao, @AuthenticationPrincipal Usuario logado) {
+	public Page<TransacaoDto> listar(@PageableDefault(size = 10) Pageable paginacao, @ApiIgnore @AuthenticationPrincipal Usuario logado) {
 		//conversão modo 1
 //		List<TransacaoDto> transacoesDto = new ArrayList<TransacaoDto>();
 //		for (Transacao t : transacoes) {
@@ -69,7 +70,7 @@ public class TransacaoController {
 	@PostMapping
 	public ResponseEntity<TransacaoDto> cadastrar(@RequestBody @Valid TransacaoFormDto dto,
 													UriComponentsBuilder uriBuilder,
-													 @AuthenticationPrincipal Usuario logado) {
+													@ApiIgnore @AuthenticationPrincipal Usuario logado) {
 		
 		TransacaoDto transacaoDto = service.cadastrar(dto, logado);
 		
@@ -83,20 +84,20 @@ public class TransacaoController {
 	
 	@PutMapping
 	public ResponseEntity<TransacaoDto> atualizar(@RequestBody @Valid AtualizarTransacaoFormDto dto,
-														@AuthenticationPrincipal Usuario logado) {
+															@ApiIgnore @AuthenticationPrincipal Usuario logado) {
 		
 		TransacaoDto atualizada = service.atualizar(dto, logado);
 		return ResponseEntity.ok(atualizada);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<TransacaoDto> deletar(@PathVariable @NotNull Long id, @AuthenticationPrincipal Usuario logado) {
+	public ResponseEntity<TransacaoDto> deletar(@PathVariable @NotNull Long id, @ApiIgnore @AuthenticationPrincipal Usuario logado) {
 		service.deletar(id, logado);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<TransacaoConsultarDto> consultar(@PathVariable @NotNull Long id, @AuthenticationPrincipal Usuario logado) {
+	public ResponseEntity<TransacaoConsultarDto> consultar(@PathVariable @NotNull Long id, @ApiIgnore @AuthenticationPrincipal Usuario logado) {
 		TransacaoConsultarDto dto = service.consultar(id, logado);
 		return ResponseEntity.ok(dto);
 	}

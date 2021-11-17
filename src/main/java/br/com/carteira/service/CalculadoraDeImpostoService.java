@@ -3,9 +3,12 @@ package br.com.carteira.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.springframework.stereotype.Service;
+
 import br.com.carteira.modelo.TipoTransacao;
 import br.com.carteira.modelo.Transacao;
 
+@Service
 public class CalculadoraDeImpostoService {
 	
 	//15% de imposto para transações do tipo venda com valor superior a R$ 20.000
