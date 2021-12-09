@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  carteira_database:
+    image: postgres:9.5
+    restart: always
+    expose:
+      - 5432
+    env_file:
+      - carteira_database.env
+
+  carteira_app:
+    image: bootcamp/java/carteira-api
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - carteira_database
+    env_file:
+      - carteira_app.env
