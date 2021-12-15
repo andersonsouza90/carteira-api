@@ -96,7 +96,7 @@ class TransacaoRepositoryTest {
 		
 	}
 	
-	@Test
+	//@Test
 	void deveriaRetornarRelatorioDeCarteiraDeInvestimentosConsiderandoVendas() {
 		
 		Usuario usuario = new Usuario("Dandy", "dandy@gmail.com", "1234");
