@@ -6,4 +6,4 @@ COPY target/*.jar /app/carteira-api.jar
 
 EXPOSE 8080
 
-CMD java -XX:+UseContainerSupport -jar carteira-api.jar
+CMD java -XX:+UseContainerSupport -Xmx512m -DServer.port=${PORT} -jar carteira-api.jar
