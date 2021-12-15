@@ -38,8 +38,8 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<!-- Quando não informamos a versão, o spring gerencia de acordo com sua 
-				própria versão -->
+			<!-- Quando nao informamos a versao, o spring gerencia de acordo com sua 
+				propria versao -->
 		</dependency>
 
 		<!-- Dependencias para retorno em XML <dependency> <groupId>com.fasterxml.jackson.dataformat</groupId> 
@@ -73,8 +73,8 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-			<!-- Quando não informamos a versão, o spring gerencia de acordo com sua 
-				própria versão -->
+			<!-- Quando nao informamos a versao, o spring gerencia de acordo com sua 
+				propria versao -->
 		</dependency>
 
 		<dependency>
