@@ -1,4 +1,4 @@
-name: Executar Testes Automatizados
+﻿name: Executar Testes Automatizados
 
 on:
   push:

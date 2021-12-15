@@ -34,7 +34,7 @@ class TransacaoRepositoryTest {
 	@Autowired
 	private TestEntityManager em;
 	
-	@Test
+	//@Test
 	void deveriaRetornarRelatorioDeCarteiraDeInvestimentos() {
 		
 		Usuario usuario = new Usuario("Dandy", "dandy@gmail.com", "1234");
